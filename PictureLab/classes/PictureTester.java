@@ -58,6 +58,20 @@ public class PictureTester
     temple.mirrorTemple();
     temple.explore();
   }
+  public static void testMirrorArms()
+  {
+    Picture snowman = new Picture("snowman.jpg");
+    snowman.explore();
+    snowman.mirrorArms();
+    snowman.explore();
+  }
+  public static void testMirrorSeagull()
+  {
+    Picture seagull = new Picture("seagull.jpg");
+    seagull.explore();
+    seagull.mirrorSeagull();
+    seagull.explore();
+  }
   
   /** Method to test the collage method */
   public static void testCollage()
