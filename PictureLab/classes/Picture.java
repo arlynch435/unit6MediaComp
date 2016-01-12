@@ -97,6 +97,65 @@ public class Picture extends SimplePicture
       }
     }
   }
+   public void onlyBlue()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setRed(0);
+        pixelObj.setGreen(0);
+      }
+    }
+  }
+   public void negate()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setRed(255-pixelObj.getRed());
+        pixelObj.setGreen(255-pixelObj.getGreen());
+        pixelObj.setBlue(255-pixelObj.getBlue());
+      }
+    }
+  }
+   public void grayscale()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        int avg=(pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue())/3;
+        pixelObj.setRed(avg);
+        pixelObj.setGreen(avg);
+        pixelObj.setBlue(avg);
+      }
+    }
+  }
+   public void fixUnderwater()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        int blue=pixelObj.getBlue();
+        int green=pixelObj.getGreen();
+        pixelObj.setGreen(green-100);
+        pixelObj.setBlue(blue-100);
+      }
+    }
+  }
+  public void cropAndCopy( Picture sourcePicture, int startSourceRow, int endSourceRow, 
+         int startSourceCol, int endSourceCol,
+         int startDestRow, int startDestCol )
+  {
+      
+  }
   
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
