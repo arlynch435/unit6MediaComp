@@ -154,8 +154,48 @@ public class Picture extends SimplePicture
          int startSourceCol, int endSourceCol,
          int startDestRow, int startDestCol )
   {
-      
+      Pixel[][] source=sourcePicture.getPixels2D();
+      Pixel[][] dest=this.getPixels2D();
+      int rowinc=0;
+      int colinc=0;
+      for (int row = startSourceRow; row < endSourceRow; row++)
+    {
+      for (int col = startSourceCol; col < endSourceCol; col++)
+      {
+        Pixel sourcePixel = source[row][col];
+        Pixel destPixel = dest[startDestRow+rowinc][startDestCol+colinc];
+        rowinc++;
+        colinc++;
+        destPixel.setColor(sourcePixel.getColor());
+      }
+    } 
   }
+  public Picture scaleByHalf()
+  {
+      Pixel[][] pixels=this.getPixels2D();
+      int halfRow=pixels.length/2;
+      int halfCol=pixels[0].length/2;
+      Picture scaled= new Picture(halfCol,halfRow);
+      Pixel[][] halfPixels=scaled.getPixels2D();
+      int rowchec=0;
+      int colchec=0;
+      Pixel leftPixel=null;
+      Pixel rightPixel=null;
+      for (int row = 0; row < pixels.length; row++)
+    {
+      for (int col = 0; col < pixels[row].length; col++)
+      {
+        leftPixel = pixels[row][col];
+        rightPixel = pixels[row][width - 1 - col];
+        if (row%2!=0&&col%2!=0)
+        {
+          rightPixel.setColor(leftPixel.getColor());
+        }
+        rightPixel = pixels[row][width - 1 - col];
+      }
+    }
+      return scaled;
+    }
   
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
