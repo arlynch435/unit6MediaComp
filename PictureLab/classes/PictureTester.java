@@ -44,6 +44,12 @@ public class PictureTester
     beach.fixUnderwater();
     beach.explore();
   }
+  public static void testScaleByHalf()
+  {
+    Picture beach = new Picture("beach.jpg");
+    beach.explore();
+    beach.scaleByHalf().explore();
+  }
   
   /** Method to test mirrorVertical */
   public static void testMirrorVertical()

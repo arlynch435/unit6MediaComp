@@ -175,23 +175,37 @@ public class Picture extends SimplePicture
       Pixel[][] pixels=this.getPixels2D();
       int halfRow=pixels.length/2;
       int halfCol=pixels[0].length/2;
-      Picture scaled= new Picture(halfCol,halfRow);
+      Picture scaled= new Picture(halfRow,halfCol);
       Pixel[][] halfPixels=scaled.getPixels2D();
-      int rowchec=0;
-      int colchec=0;
-      Pixel leftPixel=null;
-      Pixel rightPixel=null;
-      for (int row = 0; row < pixels.length; row++)
+      Pixel oldPixel=null;
+      Pixel newPixel=null;
+      for (int row = 0; row < halfRow; row++)
     {
-      for (int col = 0; col < pixels[row].length; col++)
+      for (int col = 0; col < halfCol; col++)
       {
-        leftPixel = pixels[row][col];
-        rightPixel = pixels[row][width - 1 - col];
-        if (row%2!=0&&col%2!=0)
-        {
-          rightPixel.setColor(leftPixel.getColor());
-        }
-        rightPixel = pixels[row][width - 1 - col];
+        oldPixel=pixels[row*2][col*2];
+        newPixel = halfPixels[row][col];
+        newPixel.setColor(oldPixel.getColor());
+      }
+    }
+      return scaled;
+    }
+    public Picture scaleByX(int x)
+  {
+      Pixel[][] pixels=this.getPixels2D();
+      int pieceRow=pixels.length/x;
+      int pieceCol=pixels[0].length/x;
+      Picture scaled= new Picture(pieceRow,pieceCol);
+      Pixel[][] piecePixels=scaled.getPixels2D();
+      Pixel oldPixel=null;
+      Pixel newPixel=null;
+      for (int row = 0; row < pieceRow; row++)
+    {
+      for (int col = 0; col < pieceCol; col++)
+      {
+        oldPixel=pixels[row*x][col*x];
+        newPixel = piecePixels[row][col];
+        newPixel.setColor(oldPixel.getColor());
       }
     }
       return scaled;
