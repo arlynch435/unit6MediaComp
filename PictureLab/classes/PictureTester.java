@@ -50,7 +50,12 @@ public class PictureTester
     beach.explore();
     beach.scaleByHalf().explore();
   }
-  
+  public static void testScaleByX()
+  {
+    Picture beach = new Picture("beach.jpg");
+    beach.explore();
+    beach.scaleByX(10).explore();
+  }
   /** Method to test mirrorVertical */
   public static void testMirrorVertical()
   {
@@ -104,6 +109,14 @@ public class PictureTester
     Picture seagull = new Picture("seagull.jpg");
     seagull.explore();
     seagull.mirrorSeagull();
+    seagull.explore();
+  }
+  public static void testCropAndCop()
+  {
+    Picture seagull = new Picture("seagull.jpg");
+    Picture fishies = new Picture("water.jpg");
+    seagull.explore();
+    seagull.cropAndCopy(fishies,0,150,150,462,0,0);
     seagull.explore();
   }
   

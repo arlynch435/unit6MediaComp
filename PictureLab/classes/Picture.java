@@ -164,8 +164,15 @@ public class Picture extends SimplePicture
       {
         Pixel sourcePixel = source[row][col];
         Pixel destPixel = dest[startDestRow+rowinc][startDestCol+colinc];
-        rowinc++;
-        colinc++;
+        if (colinc==endSourceCol-startSourceCol)
+        {
+         rowinc++;
+         colinc=0;
+        }
+        else
+        {
+         colinc++;
+        }
         destPixel.setColor(sourcePixel.getColor());
       }
     } 
