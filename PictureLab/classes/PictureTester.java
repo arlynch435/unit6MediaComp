@@ -56,6 +56,12 @@ public class PictureTester
     beach.explore();
     beach.scaleByX(10).explore();
   }
+  public static void testEnlargeByX()
+  {
+    Picture beach = new Picture("beach.jpg");
+    beach.explore();
+    beach.enlargeByX(2).explore();
+  }
   /** Method to test mirrorVertical */
   public static void testMirrorVertical()
   {
