@@ -168,16 +168,14 @@ public class Picture extends SimplePicture
          int startSourceCol, int endSourceCol,
          int startDestRow, int startDestCol )
   {
-      Pixel[][] source=sourcePicture.getPixels2D();
-      Pixel[][] dest=this.getPixels2D();
       int rowinc=0;
       int colinc=0;
       for (int row = startSourceRow; row < endSourceRow; row++)
     {
       for (int col = startSourceCol; col < endSourceCol; col++)
       {
-        Pixel sourcePixel = source[row][col];
-        Pixel destPixel = dest[startDestRow+rowinc][startDestCol+colinc];
+        Pixel sourcePixel = sourcePicture.getPixel(row,col);
+        Pixel destPixel = this.getPixel(startDestRow+rowinc,startDestCol+colinc);
         colinc++;
         destPixel.setColor(sourcePixel.getColor());
       }
@@ -195,6 +193,7 @@ public class Picture extends SimplePicture
       Pixel oldPixel=null;
       Pixel newPixel=null;
       for (int row = 0; row < halfRow; row++)
+      
     {
       for (int col = 0; col < halfCol; col++)
       {
@@ -267,23 +266,21 @@ public class Picture extends SimplePicture
         public Picture makeMiniCollage()
   {
       Pixel[][] pixels=this.getPixels2D();
-      Picture sample=this.scaleByX(10);
-      sample.grayscale();
-      Pixel[][] samplePixels=sample.getPixels2D();
-      int completeRow=samplePixels.length*pixels.length;
-      int completeCol=samplePixels[0].length*pixels[0].length;
+      int moddyRow=pixels.length/10;
+      int moddyCol=pixels[0].length/10;
+      int completeRow=moddyRow*pixels.length;
+      int completeCol=moddyCol*pixels[0].length;
       Picture complete=new Picture(completeRow,completeCol);
       Pixel oldPixel=null;
       Pixel newPixel=null;
-      int rowtic=0;
-      int coltic=0;
-      for (int row = 0; row < samplePixels.length; row++)
+      for (int row = 0; row < pixels.length; row++)
     {
-      for (int col = 0; col < samplePixels[0].length; col++)
+      for (int col = 0; col < pixels[0].length; col++)
       {
         oldPixel=pixels[row][col];
         int grayLevel=oldPixel.getBlue();
         Picture modified= new Picture(this);
+        modified.scaleByX(10);
         if( grayLevel==255)
         {
             modified.clearToWhite();
@@ -292,9 +289,7 @@ public class Picture extends SimplePicture
         {
             modified.grayscaleX(255-grayLevel);
         }
-        complete.cropAndCopy(modified,0,0,pixels.length,pixels[0].length,rowtic*pixels.length,coltic*pixels[0].length);
-        rowtic++;
-        coltic++;
+        complete.cropAndCopy(modified,0,0,moddyRow,moddyCol,row*pixels.length,col*pixels[0].length);
       }
     }
       return complete;
