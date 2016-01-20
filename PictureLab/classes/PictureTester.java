@@ -62,6 +62,12 @@ public class PictureTester
     beach.explore();
     beach.enlargeByX(2).explore();
   }
+  public static void testMiniCollage()
+  {
+    Picture kappa = new Picture("kappa.jpg");
+    kappa.explore();
+    kappa.makeMiniCollage().explore();
+  }
   /** Method to test mirrorVertical */
   public static void testMirrorVertical()
   {

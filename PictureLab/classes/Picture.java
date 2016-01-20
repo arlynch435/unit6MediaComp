@@ -136,6 +136,20 @@ public class Picture extends SimplePicture
       }
     }
   }
+   public void grayscaleX(int x)
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        int avg=(pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue())/3;
+        pixelObj.setRed(avg+x);
+        pixelObj.setGreen(avg+x);
+        pixelObj.setBlue(avg+x);
+      }
+    }
+  }
    public void fixUnderwater()
   {
     Pixel[][] pixels = this.getPixels2D();
@@ -237,23 +251,53 @@ public class Picture extends SimplePicture
     }
       return scaled;
     }
+   public void clearToWhite()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setRed(255);
+        pixelObj.setGreen(255);
+        pixelObj.setBlue(255);
+      }
+    }
+  }
         public Picture makeMiniCollage()
   {
       Pixel[][] pixels=this.getPixels2D();
-      int pieceRow=pixels.length*pixels.length;
-      int pieceCol=pixels[0].length*pixels[0].length;
-      Picture scaled= new Picture(pieceRow,pieceCol);
-      Pixel[][] piecePixels=scaled.getPixels2D();
+      Picture sample=this.scaleByX(10);
+      sample.grayscale();
+      Pixel[][] samplePixels=sample.getPixels2D();
+      int completeRow=samplePixels.length*pixels.length;
+      int completeCol=samplePixels[0].length*pixels[0].length;
+      Picture complete=new Picture(completeRow,completeCol);
       Pixel oldPixel=null;
       Pixel newPixel=null;
-      for (int row = 0; row < pixels.length; row++)
+      int rowtic=0;
+      int coltic=0;
+      for (int row = 0; row < samplePixels.length; row++)
     {
-      for (int col = 0; col < pixels[0].length; col++)
+      for (int col = 0; col < samplePixels[0].length; col++)
       {
         oldPixel=pixels[row][col];
+        int grayLevel=oldPixel.getBlue();
+        Picture modified= new Picture(this);
+        if( grayLevel==255)
+        {
+            modified.clearToWhite();
+        }
+        else
+        {
+            modified.grayscaleX(255-grayLevel);
+        }
+        complete.cropAndCopy(modified,0,0,pixels.length,pixels[0].length,rowtic*pixels.length,coltic*pixels[0].length);
+        rowtic++;
+        coltic++;
       }
     }
-      return scaled;
+      return complete;
     }
   
   /** Method that mirrors the picture around a 
