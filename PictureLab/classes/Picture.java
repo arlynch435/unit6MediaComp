@@ -136,17 +136,16 @@ public class Picture extends SimplePicture
       }
     }
   }
-   public void grayscaleX(int x)
+   public void addXToAll(int x)
   {
     Pixel[][] pixels = this.getPixels2D();
     for (Pixel[] rowArray : pixels)
     {
       for (Pixel pixelObj : rowArray)
       {
-        int avg=(pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue())/3;
-        pixelObj.setRed(avg+x);
-        pixelObj.setGreen(avg+x);
-        pixelObj.setBlue(avg+x);
+        pixelObj.setRed(pixelObj.getRed()+x);
+        pixelObj.setGreen(pixelObj.getGreen()+x);
+        pixelObj.setBlue(pixelObj.getBlue()+x);
       }
     }
   }
@@ -278,7 +277,7 @@ public class Picture extends SimplePicture
       for (int col = 0; col < pixels[0].length; col++)
       {
         oldPixel=pixels[row][col];
-        int grayLevel=oldPixel.getBlue();
+        int grayLevel=(oldPixel.getBlue()+oldPixel.getRed()+oldPixel.getGreen())/3;
         Picture modified= new Picture(this);
         modified.scaleByX(10);
         if( grayLevel==255)
@@ -287,7 +286,7 @@ public class Picture extends SimplePicture
         }
         else
         {
-            modified.grayscaleX(255-grayLevel);
+            modified.addXToAll(grayLevel);
         }
         complete.cropAndCopy(modified,0,0,moddyRow,moddyCol,row*pixels.length,col*pixels[0].length);
       }
