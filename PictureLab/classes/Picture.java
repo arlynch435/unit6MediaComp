@@ -175,6 +175,8 @@ public class Picture extends SimplePicture
       for (int col = startSourceCol; col < endSourceCol; col++)
       {
         Pixel sourcePixel = sourcePicture.getPixel(row,col);
+        System.out.println("Row: "+row+" Col: "+col);
+        System.out.println("Rowinc: "+rowinc+" Colinc: "+colinc);
         Pixel destPixel = this.getPixel(startDestRow+rowinc,startDestCol+colinc);
         colinc++;
         destPixel.setColor(sourcePixel.getColor());
@@ -279,17 +281,17 @@ public class Picture extends SimplePicture
       {
         oldPixel=pixels[row][col];
         int grayLevel=oldPixel.getBlue();
-        Picture modified= new Picture(this);
-        modified.scaleByX(10);
+        Picture modified= this.scaleByX(10);
+        //modified.explore();
         if( grayLevel==255)
         {
             modified.clearToWhite();
         }
         else
         {
-            modified.grayscaleX(255-grayLevel);
+            modified.grayscaleX(grayLevel);
         }
-        complete.cropAndCopy(modified,0,0,moddyRow,moddyCol,row*pixels.length,col*pixels[0].length);
+        complete.cropAndCopy(modified,0,moddyRow,0,moddyCol,row*moddyRow,col*moddyCol);
       }
     }
       return complete;
