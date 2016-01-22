@@ -173,10 +173,8 @@ public class Picture extends SimplePicture
     {
       for (int col = startSourceCol; col < endSourceCol; col++)
       {
-        Pixel sourcePixel = sourcePicture.getPixel(row,col);
-        System.out.println("Row: "+row+" Col: "+col);
-        System.out.println("Rowinc: "+rowinc+" Colinc: "+colinc);
-        Pixel destPixel = this.getPixel(startDestRow+rowinc,startDestCol+colinc);
+        Pixel sourcePixel = sourcePicture.getPixel(col,row);
+        Pixel destPixel = this.getPixel(startDestCol+colinc,startDestRow+rowinc);
         colinc++;
         destPixel.setColor(sourcePixel.getColor());
       }
@@ -279,27 +277,9 @@ public class Picture extends SimplePicture
       for (int col = 0; col < pixels[0].length; col++)
       {
         oldPixel=pixels[row][col];
-<<<<<<< HEAD
-        int grayLevel=(oldPixel.getBlue()+oldPixel.getRed()+oldPixel.getGreen())/3;
-        Picture modified= new Picture(this);
-        modified.scaleByX(10);
-=======
         int grayLevel=oldPixel.getBlue();
         Picture modified= this.scaleByX(10);
-        //modified.explore();
->>>>>>> a46621705c289fece451ab8f60f697052a3096f9
-        if( grayLevel==255)
-        {
-            modified.clearToWhite();
-        }
-        else
-        {
-<<<<<<< HEAD
-            modified.addXToAll(grayLevel);
-=======
-            modified.grayscaleX(grayLevel);
->>>>>>> a46621705c289fece451ab8f60f697052a3096f9
-        }
+        modified.addXToAll(grayLevel);
         complete.cropAndCopy(modified,0,moddyRow,0,moddyCol,row*moddyRow,col*moddyCol);
       }
     }
@@ -478,10 +458,11 @@ public class Picture extends SimplePicture
   /** Method to create a collage of several pictures */
   public void createCollage()
   {
-    //Creates the canvas
-    Picture canvas=new Picture(2040,2040);
+    //I believe this image should handle all the requirements. This program runs and saves the image made up of itself
+    //initialise new picture
+    Picture finalPic=this.makeMiniCollage();
     //Saves the final picture
-    //this.write("collage.jpg");
+    finalPic.write("collage.jpg");
   }
   
   

@@ -52,7 +52,7 @@ public class PictureTester
   }
   public static void testScaleByX()
   {
-    Picture beach = new Picture("beach.jpg");
+    Picture beach = new Picture("kappa.jpg");
     beach.explore();
     beach.scaleByX(10).explore();
   }
