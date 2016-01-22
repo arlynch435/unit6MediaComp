@@ -460,7 +460,8 @@ public class Picture extends SimplePicture
   {
     //I believe this image should handle all the requirements. This program runs and saves the image made up of itself
     //initialise new picture
-    Picture finalPic=this.makeMiniCollage();
+    Picture kappa=new Picture("kappa.jpg");
+    Picture finalPic=kappa.makeMiniCollage();
     //Saves the final picture
     finalPic.write("collage.jpg");
   }
