@@ -281,6 +281,7 @@ public class Picture extends SimplePicture
         Picture modified= this.scaleByX(10);
         modified.addXToAll(grayLevel);
         complete.cropAndCopy(modified,0,moddyRow,0,moddyCol,row*moddyRow,col*moddyCol);
+
       }
     }
       return complete;
